@@ -50,7 +50,6 @@ namespace myfunc
 
         public static async Task<BlobContainerClient> GetCloudBlobContainer(string containerName)
         {
-            //string connstring = "DefaultEndpointsProtocol=https;AccountName=alwayson;AccountKey=xybXZHETeC8ms5sLtmuvimPlqTf5tU1493wB7cyEuybLe/V2QciqDo2D2VKjODR0K8vKCbeJ8syA+ASt6XmYAw==;EndpointSuffix=core.windows.net";
             string connstring = Environment.GetEnvironmentVariable("connstring");
             BlobServiceClient serviceClient = new BlobServiceClient(connstring);
             BlobContainerClient containerClient = serviceClient.GetBlobContainerClient(containerName);
