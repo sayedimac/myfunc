@@ -10,8 +10,8 @@ using Newtonsoft.Json;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using System.Collections.Generic;
-using System.Net.Http;
-using Flurl;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.AzureAppConfiguration;
 
 namespace myfunc
 {
@@ -50,7 +50,8 @@ namespace myfunc
 
         public static async Task<BlobContainerClient> GetCloudBlobContainer(string containerName)
         {
-            string connstring = "DefaultEndpointsProtocol=https;AccountName=alwayson;AccountKey=xybXZHETeC8ms5sLtmuvimPlqTf5tU1493wB7cyEuybLe/V2QciqDo2D2VKjODR0K8vKCbeJ8syA+ASt6XmYAw==;EndpointSuffix=core.windows.net";
+            //string connstring = "DefaultEndpointsProtocol=https;AccountName=alwayson;AccountKey=xybXZHETeC8ms5sLtmuvimPlqTf5tU1493wB7cyEuybLe/V2QciqDo2D2VKjODR0K8vKCbeJ8syA+ASt6XmYAw==;EndpointSuffix=core.windows.net";
+            string connstring = Environment.GetEnvironmentVariable("connstring");
             BlobServiceClient serviceClient = new BlobServiceClient(connstring);
             BlobContainerClient containerClient = serviceClient.GetBlobContainerClient(containerName);
             await containerClient.CreateIfNotExistsAsync();
