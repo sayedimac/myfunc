@@ -52,7 +52,7 @@ namespace myfunc
         {
             string connstring = Environment.GetEnvironmentVariable("connstring");
             BlobServiceClient serviceClient = new BlobServiceClient(connstring);
-            BlobContainerClient containerClient = serviceClient.GetBlobContainerClient(containerName);
+            BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("images");
             await containerClient.CreateIfNotExistsAsync();
             return containerClient;
         }
