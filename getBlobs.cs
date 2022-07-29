@@ -38,12 +38,11 @@ namespace myfunc
             List<string> results = new List<string>();
             await foreach (BlobItem blobItem in containerClient.GetBlobsAsync())
             {
-                results.Add(
-                    Flurl.Url.Combine(
+                BlobObject blobObject = new BlobObject(blobItem.Name, Flurl.Url.Combine(
                         containerClient.Uri.AbsoluteUri,
                         blobItem.Name
-                    )
-                );
+                    ));
+                results.Add(blobObject);
             }
             return new OkObjectResult(results);
         }
@@ -56,5 +55,21 @@ namespace myfunc
             await containerClient.CreateIfNotExistsAsync();
             return containerClient;
         }
+    }
+
+    public class BlobObject
+    {
+        public BlobObject(string name, string url)
+        {
+            blobName = name;
+            blobUrl = url;
+        }
+        public BlobObject()
+        {
+
+        }
+        public string blobName { get; set; }
+
+        public string blobUrl { get; set; }
     }
 }
