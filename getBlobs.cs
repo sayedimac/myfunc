@@ -35,7 +35,7 @@ namespace myfunc
             //     : $"Hello, {container}." + connstring;
 
             BlobContainerClient containerClient = await GetCloudBlobContainer(container);
-            List<string> results = new List<string>();
+            List<BlobObject> results = new List<BlobObject>();
             await foreach (BlobItem blobItem in containerClient.GetBlobsAsync())
             {
                 BlobObject blobObject = new BlobObject(blobItem.Name, Flurl.Url.Combine(
