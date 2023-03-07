@@ -29,7 +29,7 @@ namespace myfunc
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             name = name ?? data?.name;
 
-            TableClient tableClient = await GetTableClient(name);
+            TableClient tableClient = await GetTableClient("tabledata");
 
             // Create new item using composite key constructor
             var prod1 = new Product()
