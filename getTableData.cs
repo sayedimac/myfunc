@@ -22,7 +22,9 @@ namespace myfunc
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             string name = req.Query["name"];
-
+            int qty = Int32.Parse(req.Query["qty"]);
+            bool isSale = Boolean.Parse(req.Query["sale"]);
+            string partKey = req.Query["key"];
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             name = name ?? data?.name;
@@ -33,10 +35,10 @@ namespace myfunc
             var prod1 = new Product()
             {
                 RowKey = "68719518388",
-                PartitionKey = "gear-surf-surfboards",
-                Name = "Ocean Surfboard",
-                Quantity = 8,
-                Sale = true
+                PartitionKey = partKey,
+                Name = name,
+                Quantity = qty,
+                Sale = isSale
             };
 
             // Add new item to server-side table
@@ -45,13 +47,14 @@ namespace myfunc
             // Read a single item from container
             var product = await tableClient.GetEntityAsync<Product>(
                 rowKey: "68719518388",
-                partitionKey: "gear-surf-surfboards"
+                partitionKey: partKey
             );
 
             string responseMessage = product.Value.Name;
 
             return new OkObjectResult(responseMessage);
         }
+
 
         public static async Task<TableClient> GetTableClient(string theTableName)
         {
