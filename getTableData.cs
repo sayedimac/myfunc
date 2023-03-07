@@ -42,9 +42,13 @@ namespace myfunc
             // Add new item to server-side table
             await tableClient.AddEntityAsync<Product>(prod1);
 
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
+            // Read a single item from container
+            var product = await tableClient.GetEntityAsync<Product>(
+                rowKey: "68719518388",
+                partitionKey: "gear-surf-surfboards"
+            );
+
+            string responseMessage = product.Value.Name;
 
             return new OkObjectResult(responseMessage);
         }
