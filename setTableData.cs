@@ -12,9 +12,9 @@ using Azure;
 
 namespace myfunc
 {
-    public static class getTableData
+    public static class setTableData
     {
-        [FunctionName("getTableData")]
+        [FunctionName("setTableData")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
@@ -31,48 +31,30 @@ namespace myfunc
 
             TableClient tableClient = await GetTableClient("tabledata");
 
-            var product = await tableClient.GetEntityAsync<Product>(
-                rowKey: "68719518388",
-                partitionKey: partKey
-            );
+            // Create new item using composite key constructor
+            var prod1 = new Product()
+            {
+                RowKey = "68719518388",
+                PartitionKey = partKey,
+                Name = name,
+                Quantity = qty,
+                Sale = isSale
+            };
 
-            string responseMessage = product.Value.Name;
+            // Add new item to server-side table
+            await tableClient.AddEntityAsync<Product>(prod1);
+
+            string responseMessage = "Product: " + name + " added to table.";
 
             return new OkObjectResult(responseMessage);
         }
-
-
         public static async Task<TableClient> GetTableClient(string theTableName)
         {
             string connstring = Environment.GetEnvironmentVariable("connstring");
             TableServiceClient tableServiceClient = new TableServiceClient(connstring);
             TableClient tableClient = tableServiceClient.GetTableClient(tableName: theTableName);
-
             await tableClient.CreateIfNotExistsAsync();
-
-            // string container = Environment.GetEnvironmentVariable("container");
-            // BlobServiceClient serviceClient = new BlobServiceClient(connstring);
-            // BlobContainerClient containerClient = serviceClient.GetBlobContainerClient(container);
-            // await containerClient.CreateIfNotExistsAsync();
             return tableClient;
         }
     }
-    // C# record type for items in the table
-    public record Product : ITableEntity
-    {
-        public string RowKey { get; set; } = default!;
-
-        public string PartitionKey { get; set; } = default!;
-
-        public string Name { get; init; } = default!;
-
-        public int Quantity { get; init; }
-
-        public bool Sale { get; init; }
-
-        public ETag ETag { get; set; } = default!;
-
-        public DateTimeOffset? Timestamp { get; set; } = default!;
-    }
-
 }
