@@ -34,7 +34,7 @@ namespace myfunc
             // Create new item using composite key constructor
             var prod1 = new Product()
             {
-                RowKey = "68719518388",
+                RowKey = "website1",
                 PartitionKey = partKey,
                 Name = name,
                 Quantity = qty,

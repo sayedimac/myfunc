@@ -21,23 +21,17 @@ namespace myfunc
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            string name = req.Query["name"];
-            int qty = Int32.Parse(req.Query["qty"]);
-            bool isSale = Boolean.Parse(req.Query["sale"]);
             string partKey = req.Query["key"];
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
 
             TableClient tableClient = await GetTableClient("tabledata");
 
             var product = await tableClient.GetEntityAsync<Product>(
-                rowKey: "68719518388",
+                rowKey: "website1",
                 partitionKey: partKey
             );
-
             string responseMessage = product.Value.Name;
-
             return new OkObjectResult(responseMessage);
         }
 
@@ -47,13 +41,7 @@ namespace myfunc
             string connstring = Environment.GetEnvironmentVariable("connstring");
             TableServiceClient tableServiceClient = new TableServiceClient(connstring);
             TableClient tableClient = tableServiceClient.GetTableClient(tableName: theTableName);
-
             await tableClient.CreateIfNotExistsAsync();
-
-            // string container = Environment.GetEnvironmentVariable("container");
-            // BlobServiceClient serviceClient = new BlobServiceClient(connstring);
-            // BlobContainerClient containerClient = serviceClient.GetBlobContainerClient(container);
-            // await containerClient.CreateIfNotExistsAsync();
             return tableClient;
         }
     }
