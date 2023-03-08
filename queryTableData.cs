@@ -18,11 +18,10 @@ namespace myfunc
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            string partKey = req.Query["key"];
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-
+            string partKey = req.Query["partkey"];
+            string myRowKey = req.Query["rowkey"];
             TableClient tableClient = await GetTableClient("tabledata");
-            var products = tableClient.Query<Product>(x => x.PartitionKey == partKey);
+            var products = tableClient.Query<Product>(x => x.PartitionKey == partKey && x.RowKey == myRowKey);
 
             string responseMessage = JsonSerializer.Serialize(products);
             return new OkObjectResult(responseMessage);
