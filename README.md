@@ -1,4 +1,4 @@
-#The myfunc app is a C# Function App that runs in Azure
+# The myfunc app is a C# Function App that runs in Azure
 
 Simple Azure function that reads blobs and table data from an Azure storage account.
 You can publish this app to an Azure Function app by following the steps below:
