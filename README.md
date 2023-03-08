@@ -4,7 +4,7 @@ Simple Azure function that reads blobs and table data from an Azure storage acco
 You can publish this app to an Azure Function app by following the steps below:
 
 1. Create an Azure Function App  - this should also create a storage account that will manage the state of Durable Functions should you want to make use of those
-2. Navigate to the Storage account and copy the connection string from *Security & Networking / Keys* - you will use this next when you configure the Fucntion App
+2. Navigate to the Storage account and copy the connection string from *Security & Networking / Keys* - you will use this next when you configure the Function App
 3. Create Blob Container in the storage account called *images* and upload some images in there so there is some sample data  
 4. Go back to the function app, select *Configuration* under *Settings*
 5. Add a setting by Clicking on the *+ New application setting*, add a setting named *connstring* and make the value of this the connection string from the earlier step
