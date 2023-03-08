@@ -24,12 +24,21 @@ namespace myfunc
 
             TableClient tableClient = await GetTableClient("tabledata");
 
-            var product = await tableClient.GetEntityAsync<Product>(
-                rowKey: rowKey,
-                partitionKey: "website1"
-            );
-            string responseMessage = JsonSerializer.Serialize(product);
-            return new OkObjectResult(responseMessage);
+            try
+            {
+                var product = await tableClient.GetEntityAsync<Product>(
+                    rowKey: rowKey,
+                    partitionKey: "website1"
+                );
+                string responseMessage = JsonSerializer.Serialize(product);
+                return new OkObjectResult(responseMessage);
+            }
+            catch (System.Exception e)
+            {
+                string responseMessage = e.Message;
+                return new OkObjectResult(responseMessage);
+            }
+
         }
 
         public static async Task<TableClient> GetTableClient(string theTableName)

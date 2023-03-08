@@ -21,10 +21,19 @@ namespace myfunc
             string partKey = req.Query["partkey"];
             string myRowKey = req.Query["rowkey"];
             TableClient tableClient = await GetTableClient("tabledata");
-            var products = tableClient.Query<Product>(x => x.PartitionKey == partKey && x.RowKey == myRowKey);
+            try
+            {
+                var products = tableClient.Query<Product>(x => x.PartitionKey == partKey && x.RowKey == myRowKey);
 
-            string responseMessage = JsonSerializer.Serialize(products);
-            return new OkObjectResult(responseMessage);
+                string responseMessage = JsonSerializer.Serialize(products);
+                return new OkObjectResult(responseMessage);
+            }
+            catch (System.Exception e)
+            {
+                string responseMessage = e.Message;
+                return new OkObjectResult(responseMessage);
+            }
+
         }
 
         public static async Task<TableClient> GetTableClient(string theTableName)

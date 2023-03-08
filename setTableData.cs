@@ -36,11 +36,17 @@ namespace myfunc
                 Sale = isSale
             };
 
-            await tableClient.AddEntityAsync<Product>(prod1);
-
-            string responseMessage = "Product: " + name + " added to table.";
-
-            return new OkObjectResult(responseMessage);
+            try
+            {
+                await tableClient.AddEntityAsync<Product>(prod1);
+                string responseMessage = "Product: " + name + " added to table.";
+                return new OkObjectResult(responseMessage);
+            }
+            catch (System.Exception e)
+            {
+                string responseMessage = e.Message;
+                return new OkObjectResult(responseMessage);
+            }
         }
         public static async Task<TableClient> GetTableClient(string theTableName)
         {
