@@ -21,20 +21,19 @@ namespace myfunc
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            string partKey = req.Query["key"];
+            string rowKey = req.Query["key"];
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
 
             TableClient tableClient = await GetTableClient("tabledata");
 
             var product = await tableClient.GetEntityAsync<Product>(
-                rowKey: "website1",
-                partitionKey: partKey
+                rowKey: rowKey,
+                partitionKey: "website1"
             );
             string responseMessage = product.Value.Name;
             return new OkObjectResult(responseMessage);
         }
-
 
         public static async Task<TableClient> GetTableClient(string theTableName)
         {
@@ -45,7 +44,6 @@ namespace myfunc
             return tableClient;
         }
     }
-    // C# record type for items in the table
     public record Product : ITableEntity
     {
         public string RowKey { get; set; } = default!;

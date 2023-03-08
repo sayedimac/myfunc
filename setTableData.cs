@@ -24,24 +24,22 @@ namespace myfunc
             string name = req.Query["name"];
             int qty = Int32.Parse(req.Query["qty"]);
             bool isSale = Boolean.Parse(req.Query["sale"]);
-            string partKey = req.Query["key"];
+            string rowKey = req.Query["key"];
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             name = name ?? data?.name;
 
             TableClient tableClient = await GetTableClient("tabledata");
 
-            // Create new item using composite key constructor
             var prod1 = new Product()
             {
-                RowKey = "website1",
-                PartitionKey = partKey,
+                RowKey = rowKey,
+                PartitionKey = "website1",
                 Name = name,
                 Quantity = qty,
                 Sale = isSale
             };
 
-            // Add new item to server-side table
             await tableClient.AddEntityAsync<Product>(prod1);
 
             string responseMessage = "Product: " + name + " added to table.";
