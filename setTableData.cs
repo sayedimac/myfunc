@@ -6,7 +6,6 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Azure.Data.Tables;
 using Azure;
 
@@ -19,15 +18,12 @@ namespace myfunc
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
 
             string name = req.Query["name"];
             int qty = Int32.Parse(req.Query["qty"]);
             bool isSale = Boolean.Parse(req.Query["sale"]);
             string rowKey = req.Query["key"];
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
 
             TableClient tableClient = await GetTableClient("tabledata");
 
