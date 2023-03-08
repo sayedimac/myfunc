@@ -22,7 +22,8 @@ namespace myfunc
             string name = req.Query["name"];
             int qty = Int32.Parse(req.Query["qty"]);
             bool isSale = Boolean.Parse(req.Query["sale"]);
-            string rowKey = req.Query["key"];
+            string rowKey = req.Query["rowkey"];
+            string partKey = req.Query["partkey"];
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
             TableClient tableClient = await GetTableClient("tabledata");
@@ -30,7 +31,7 @@ namespace myfunc
             var prod1 = new Product()
             {
                 RowKey = rowKey,
-                PartitionKey = "website1",
+                PartitionKey = partKey,
                 Name = name,
                 Quantity = qty,
                 Sale = isSale
@@ -39,7 +40,7 @@ namespace myfunc
             try
             {
                 await tableClient.AddEntityAsync<Product>(prod1);
-                string responseMessage = "Product: " + name + " added to table.";
+                string responseMessage = "Product: " + name + " added to Table." + " RowKey: " + rowKey + " PartitionKey: " + partKey + " Quantity: " + qty + " Sale: " + isSale;
                 return new OkObjectResult(responseMessage);
             }
             catch (System.Exception e)

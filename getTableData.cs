@@ -19,8 +19,8 @@ namespace myfunc
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            string rowKey = req.Query["key"];
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            string rowKey = req.Query["rowkey"];
+            string partKey = req.Query["partkey"];
 
             TableClient tableClient = await GetTableClient("tabledata");
 
@@ -28,7 +28,7 @@ namespace myfunc
             {
                 var product = await tableClient.GetEntityAsync<Product>(
                     rowKey: rowKey,
-                    partitionKey: "website1"
+                    partitionKey: partKey
                 );
                 string responseMessage = JsonSerializer.Serialize(product);
                 return new OkObjectResult(responseMessage);
