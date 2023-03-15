@@ -46,7 +46,7 @@ namespace myfunc
 
         public static async Task<BlobContainerClient> GetCloudBlobContainer(string containerName)
         {
-            string connstring = Environment.GetEnvironmentVariable("connstring");
+            string connstring = Environment.GetEnvironmentVariable("dbconn");
             string container = Environment.GetEnvironmentVariable("container");
             BlobServiceClient serviceClient = new BlobServiceClient(connstring);
             BlobContainerClient containerClient = serviceClient.GetBlobContainerClient(container);
