@@ -1,5 +1,7 @@
 # The myfunc app is a C# Function App that runs in Azure
 
+[![Build and deploy dotnet core project to Azure Function App - alwayson](https://github.com/sayedimac/myfunc/actions/workflows/main_alwayson.yml/badge.svg)](https://github.com/sayedimac/myfunc/actions/workflows/main_alwayson.yml)
+
 ## Simple Azure function that reads blobs and table data from an Azure storage account. 
 You can publish this app to an Azure Function app by following the steps below:
 
