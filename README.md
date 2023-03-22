@@ -2,7 +2,7 @@
 
 [![Build and deploy dotnet core project to Azure Function App - alwayson](https://github.com/sayedimac/myfunc/actions/workflows/main_alwayson.yml/badge.svg)](https://github.com/sayedimac/myfunc/actions/workflows/main_alwayson.yml)
 
-## Simple Azure function that reads blobs and table data from an Azure storage account. 
+## Simple Azure function that reads blobs and table data from an Azure storage account...
 You can publish this app to an Azure Function app by following the steps below:
 
 1. Create an Azure Function App  - this should also create a storage account that will manage the state of Durable Functions should you want to make use of those
