@@ -39,4 +39,4 @@ jobs:
           app-name: 'alwayson'
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_60279A71464745CB9B8ED5F5FA0247FF }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_457F97F5EFBA4851ABAC9F5E152934C9 }}
