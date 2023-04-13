@@ -7,6 +7,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'README.md'
   workflow_dispatch:
 
 env:
@@ -40,3 +42,20 @@ jobs:
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_457F97F5EFBA4851ABAC9F5E152934C9 }}
+          
+  Container:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Docker Build Tag Publish
+        # You may pin to the exact commit or the version.
+        # uses: bitovi/github-actions-docker-publish@def3cb9a3ef842b230bf575dc4f5e280ae6a6896
+        uses: bitovi/github-actions-docker-publish@v1.0.7
+        with:
+          # Checkout the repository
+          image_tag: latest
+          # Use the SHA for the tag.  Overrides the default logic.
+          # Docker org name.
+          org_name: ghcr.io/sayedimac
+          # Name of the docker repository
+          repo_name: slots
+          # Docker user
