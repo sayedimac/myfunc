@@ -40,7 +40,7 @@ namespace myfunc
             try
             {
                 await tableClient.AddEntityAsync<Product>(prod1);
-                string responseMessage = "Product: " + name + " added to Table." + " RowKey: " + rowKey + " PartitionKey: " + partKey + " Quantity: " + qty + " Sale: " + isSale;
+                string responseMessage = "Order: " + name + " added to Table." + " RowKey: " + rowKey + " PartitionKey: " + partKey + " Quantity: " + qty + " Sale: " + isSale;
                 return new OkObjectResult(responseMessage);
             }
             catch (System.Exception e)
