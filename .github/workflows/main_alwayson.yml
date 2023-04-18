@@ -21,7 +21,7 @@ env:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
-    needs: deploy-to-azure
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
