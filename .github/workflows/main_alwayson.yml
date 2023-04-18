@@ -14,14 +14,14 @@ on:
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '6.0.x' # set this to the dotnet version to use
-  REGISTRY: ghcr1.io
+  REGISTRY: ghcr.io
   IMAGE_NAME: sayedimac/myfunc
 
 
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
-    
+    needs: deploy-to-azure
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
