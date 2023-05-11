@@ -14,8 +14,10 @@ on:
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '6.0.x' # set this to the dotnet version to use
-  REGISTRY: ghcr.io
-  IMAGE_NAME: sayedimac/myfunc
+  REGISTRY1: ghcr.io
+  REGISTRY2: alwayson.azurecr.io
+  IMAGE_NAME1: sayedimac/myfunc
+  IMAGE_NAME2: alwayson.azurecr.io/myfunc
 
 
 jobs:
@@ -26,27 +28,48 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Log in to the Container registry
+      - name: Log in to the GH Container registry
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: ${{ env.REGISTRY1 }}
           username: sayedimac
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract metadata (tags, labels) for Docker
-        id: meta
+        id: meta1
         uses: docker/metadata-action@c4ee3adeed93b1fa6a762f209fb01608c1a22f1e
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY1 }}/${{ env.IMAGE_NAME1 }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-  
+          tags: ${{ steps.meta1.outputs.tags }}
+          labels: ${{ steps.meta1.outputs.labels }}
+
+      - name: Extract metadata (tags, labels) for ACR
+        id: meta2
+        uses: docker/metadata-action@c4ee3adeed93b1fa6a762f209fb01608c1a22f1e
+        with:
+          images: ${{ env.REGISTRY2 }}/${{ env.IMAGE_NAME2 }}
+
+      - name: Log in to the Azure  Container registry
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        with:
+          registry: ${{ env.REGISTRY2 }}
+          username: alwayson
+          password: ${{ secrets.ACRPASSWORD }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta2.outputs.tags }}
+          labels: ${{ steps.meta2.outputs.labels }}
+
+
   deploy-to-azure:
     runs-on: ubuntu-latest
     needs: build-and-push-image
