@@ -17,7 +17,7 @@ env:
   REGISTRY1: ghcr.io
   REGISTRY2: alwayson.azurecr.io
   IMAGE_NAME1: sayedimac/myfunc
-  IMAGE_NAME2: alwayson.azurecr.io/myfunc
+  IMAGE_NAME2: myfunc
 
 
 jobs:
