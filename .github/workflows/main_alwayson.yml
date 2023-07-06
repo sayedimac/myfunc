@@ -42,7 +42,7 @@ jobs:
           images: ${{ env.REGISTRY1 }}/${{ env.IMAGE_NAME1 }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        uses: docker/build-push-action@2eb1c1961a95fc15694676618e422e8ba1d63825
         with:
           context: .
           push: true
@@ -62,7 +62,7 @@ jobs:
           username: alwayson
           password: ${{ secrets.ACRPASSWORD }}
       - name: Build and push Docker image
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        uses: docker/build-push-action@2eb1c1961a95fc15694676618e422e8ba1d63825
         with:
           context: .
           push: true
