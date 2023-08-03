@@ -7,5 +7,9 @@
     "azureLogicAppsStandard.deploySubpath": "bin/Release/net6.0/publish",
     "azureLogicAppsStandard.projectLanguage": "C#",
     "azureLogicAppsStandard.projectRuntime": "~4",
-    "azureLogicAppsStandard.preDeployTask": "publish"
+    "azureLogicAppsStandard.preDeployTask": "publish",
+    "cSpell.words": [
+        "Apim",
+        "myfunc"
+    ]
 }
