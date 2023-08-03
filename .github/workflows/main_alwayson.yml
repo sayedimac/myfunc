@@ -11,7 +11,9 @@ env:
   DOTNET_VERSION: '6.0.x' # set this to the dotnet version to use
 
 jobs:
+
   build-and-deploy:
+
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout GitHub Action'
