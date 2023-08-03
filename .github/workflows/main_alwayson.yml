@@ -1,78 +1,21 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/azure/functions-action
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy dotnet core project to Azure Function App - alwayson
+name: To Alwayson Function App
 
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - 'README.md'
   workflow_dispatch:
 
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '6.0.x' # set this to the dotnet version to use
-  REGISTRY1: ghcr.io
-  REGISTRY2: alwayson.azurecr.io
-  IMAGE_NAME1: sayedimac/myfunc
-  IMAGE_NAME2: myfunc
-
 
 jobs:
-  build-and-push-image:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Log in to the GH Container registry
-        uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc
-        with:
-          registry: ${{ env.REGISTRY1 }}
-          username: sayedimac
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta1
-        uses: docker/metadata-action@c4ee3adeed93b1fa6a762f209fb01608c1a22f1e
-        with:
-          images: ${{ env.REGISTRY1 }}/${{ env.IMAGE_NAME1 }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta1.outputs.tags }}
-          labels: ${{ steps.meta1.outputs.labels }}
-
-      - name: Extract metadata (tags, labels) for ACR
-        id: meta2
-        uses: docker/metadata-action@c4ee3adeed93b1fa6a762f209fb01608c1a22f1e
-        with:
-          images: ${{ env.REGISTRY2 }}/${{ env.IMAGE_NAME2 }}
-
-      - name: Log in to the Azure  Container registry
-        uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc
-        with:
-          registry: ${{ env.REGISTRY2 }}
-          username: alwayson
-          password: ${{ secrets.ACRPASSWORD }}
-      - name: Build and push Docker image
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta2.outputs.tags }}
-          labels: ${{ steps.meta2.outputs.labels }}
 
 
-  deploy-to-azure:
-    runs-on: ubuntu-latest
-    needs: build-and-push-image
+
+  build-and-deploy:
+   runs-on: ubuntu-latest
     steps:
       - name: 'Checkout GitHub Action'
         uses: actions/checkout@v3
@@ -96,7 +39,4 @@ jobs:
           app-name: 'alwayson'
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_457F97F5EFBA4851ABAC9F5E152934C9 }}
-          
-
-
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F030D7171B2B40E3B6C6E7DD25221A82 }}
