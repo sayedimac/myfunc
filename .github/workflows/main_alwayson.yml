@@ -12,9 +12,10 @@ env:
 
 jobs:
 
-  build-and-deploy:
 
-    runs-on: ubuntu-latest
+
+  build-and-deploy:
+   runs-on: ubuntu-latest
     steps:
       - name: 'Checkout GitHub Action'
         uses: actions/checkout@v3
