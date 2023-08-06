@@ -43,7 +43,7 @@ namespace myfunc
 
             string to = req.Query["to"];
             string txt = req.Query["txt"];
-            string route = "/detect?api-version=3.0";
+            string route = "detect?api-version=3.0";
             string detectSentenceText = "The dog walked into the house";
             await DetectTextRequest(resourceKey, endpoint, route, detectSentenceText);
 
