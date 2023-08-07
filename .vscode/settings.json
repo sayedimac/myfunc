@@ -10,6 +10,7 @@
     "azureLogicAppsStandard.preDeployTask": "publish",
     "cSpell.words": [
         "Apim",
-        "myfunc"
+        "myfunc",
+        "salesorders"
     ]
 }
