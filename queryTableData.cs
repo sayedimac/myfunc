@@ -20,7 +20,7 @@ namespace myfunc
         {
             string myPartKey = req.Query["partkey"];
             string myRowKey = req.Query["rowkey"];
-            TableClient tableClient = await GetTableClient("tabledata");
+            TableClient tableClient = await GetTableClient("salesorders");
             try
             {
                 if (string.IsNullOrEmpty(myRowKey))
