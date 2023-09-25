@@ -21,7 +21,7 @@ namespace myfunc
             string rowKey = req.Query["rowkey"];
             string partKey = req.Query["partkey"];
 
-            TableClient tableClient = await GetTableClient("tabledata");
+            TableClient tableClient = await GetTableClient("salesorders");
 
             try
             {

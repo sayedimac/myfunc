@@ -26,7 +26,7 @@ namespace myfunc
             string partKey = req.Query["partkey"];
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
-            TableClient tableClient = await GetTableClient("tabledata");
+            TableClient tableClient = await GetTableClient("salesorders");
 
             var prod1 = new Product()
             {
