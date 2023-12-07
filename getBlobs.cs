@@ -25,7 +25,7 @@ namespace myfunc
             ILogger log)
         {
 
-            string container = "images" //req.Query["container"];
+            string container = "images"; //req.Query["container"];
 
             // string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             // dynamic data = JsonConvert.DeserializeObject(requestBody);
