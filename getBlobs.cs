@@ -25,11 +25,11 @@ namespace myfunc
             ILogger log)
         {
 
-            string container = req.Query["container"];
+            string container = "images" //req.Query["container"];
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            container = container ?? data?.container;
+            // string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            // dynamic data = JsonConvert.DeserializeObject(requestBody);
+            // container = container ?? data?.container;
 
             BlobContainerClient containerClient = await GetCloudBlobContainer(container);
             List<BlobObject> results = new List<BlobObject>();
