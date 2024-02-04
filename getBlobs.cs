@@ -35,10 +35,8 @@ namespace myfunc
             List<BlobObject> results = new List<BlobObject>();
             await foreach (BlobItem blobItem in containerClient.GetBlobsAsync())
             {
-                BlobObject blobObject = new BlobObject(blobItem.Name, Flurl.Url.Combine(
-                        containerClient.Uri.AbsoluteUri,
-                        blobItem.Name
-                    ));
+                string blobUrl = new Uri(containerClient.Uri, blobItem.Name).AbsoluteUri;
+                BlobObject blobObject = new BlobObject(blobItem.Name, blobUrl);
                 results.Add(blobObject);
             }
             return new OkObjectResult(results);
