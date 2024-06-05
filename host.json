@@ -26,5 +26,9 @@
   "concurrency": {
     "dynamicConcurrencyEnabled": true,
     "snapshotPersistenceEnabled": true
+  },
+  "extensionBundle": {
+    "id": "Microsoft.Azure.Functions.ExtensionBundle.Preview",
+    "version": "[4.*, 5.0.0)"
   }
 }
