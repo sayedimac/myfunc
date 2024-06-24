@@ -19,11 +19,11 @@ namespace myfunc
             ILogger log)
         {
 
-            string name = req.Query["name"];
-            int qty = Int32.Parse(req.Query["qty"]);
-            bool isSale = Boolean.Parse(req.Query["sale"]);
-            string rowKey = req.Query["rowkey"];
-            string partKey = req.Query["partkey"];
+            string name = req.Query["n"];
+            int qty = Int32.Parse(req.Query["q"]);
+            bool isSale = Boolean.Parse(req.Query["s"]);
+            string rowKey = req.Query["r"];
+            string partKey = req.Query["p"];
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
             TableClient tableClient = await GetTableClient("salesorders");
