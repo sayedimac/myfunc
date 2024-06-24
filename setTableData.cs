@@ -51,7 +51,7 @@ namespace myfunc
         }
         public static async Task<TableClient> GetTableClient(string theTableName)
         {
-            string connstring = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
+            string connstring = Environment.GetEnvironmentVariable("dbconn");
             TableServiceClient tableServiceClient = new TableServiceClient(connstring);
             TableClient tableClient = tableServiceClient.GetTableClient(tableName: theTableName);
             await tableClient.CreateIfNotExistsAsync();
