@@ -18,8 +18,8 @@ namespace myfunc
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            string myPartKey = req.Query["partkey"];
-            string myRowKey = req.Query["rowkey"];
+            string myPartKey = req.Query["p"];
+            string myRowKey = req.Query["r"];
             TableClient tableClient = await GetTableClient("salesorders");
             try
             {
