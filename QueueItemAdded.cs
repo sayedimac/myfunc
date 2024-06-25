@@ -9,7 +9,7 @@ namespace myfunc
     {
         [FunctionName("QueueItemAdded")]
         [return: Table("salesorders", Connection = "dbconn")]
-        public MyPoco Run([QueueTrigger("salesorders", Connection = "AzureWebJobsStorage")]string myQueueItem, ILogger log)
+        public MyPoco Run([QueueTrigger("salesorders", Connection = "dbconn")]string myQueueItem, ILogger log)
         {
             log.LogInformation($"C# Queue trigger function processed: {myQueueItem}");
             return new MyPoco { PartitionKey = "salesorders", RowKey = Guid.NewGuid().ToString(), Text = myQueueItem };
