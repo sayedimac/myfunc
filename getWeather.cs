@@ -19,7 +19,7 @@ namespace myfunc
         {
             log.LogInformation("Sent Weather Data");
 
-            JObject responseMessage =  "[" +  
+            String responseMessage =  "[" +  
                 "{\"date\": \"2022-01-06\",\"temperatureC\": 1, \"summary\": \"Freezing\"}," +
                 "{\"date\": \"2022-01-07\",\"temperatureC\": 14,\"summary\": \"Bracing\"}," +
                 "{\"date\": \"2022-01-08\",\"temperatureC\": -13,\"summary\": \"Freezing\"}," +
