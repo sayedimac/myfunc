@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Azure.Data.Tables;
 using Azure;
+using myfunc.Models;
 
 namespace myfunc
 {

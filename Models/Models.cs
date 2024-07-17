@@ -1,9 +1,21 @@
+using System;
 using Azure.Data.Tables;
 using Azure;
-using System;
 
-namespace myfunc
+
+namespace myfunc.Models
 {
+    public class WeatherForecast
+    {
+        public DateTime Date { get; set; }
+
+        public int TemperatureC { get; set; }
+
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+
+        public string Summary { get; set; }
+    }
+
     public record Product : ITableEntity
     {
         public string RowKey { get; set; } = default!;
@@ -24,4 +36,5 @@ namespace myfunc
         public string blobName { get; set; }
         public string blobUrl { get; set; }
     }
+
 }
