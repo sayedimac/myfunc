@@ -32,7 +32,7 @@ namespace myfunc
         {
             log.LogInformation("Sent Weather Data");
 
-            return Enumerable.Range(1, 1).Select(index => new WeatherForecast
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = new Random().Next(-20, 55),
