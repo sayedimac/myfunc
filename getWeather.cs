@@ -32,13 +32,11 @@ namespace myfunc
         {
             log.LogInformation("Sent Weather Data");
 
-            var randomNumber = new Random();
-            var summaryId = randomNumber.Next(Summaries.Length);
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return Enumerable.Range(1, 1).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
-                TemperatureC = randomNumber.Next(-20, 55),
-                Summary = Summaries[summaryId]
+                TemperatureC = new Random().Next(-20, 55),
+                Summary = getSummary(new Random().Next(0, 10))
             })
             .ToArray();
 
@@ -51,6 +49,36 @@ namespace myfunc
             //     "{\"date\": \"2022-01-10\",\"temperatureC\": -2,\"summary\": \"Chilly\"}" +
             // "]";
             // return new OkObjectResult(responseMessage);
+        }
+        public static string getSummary(int id)
+        {
+            var summaryId = id;
+            string? theSummary = "" ?? "No weather at all!";
+            switch (summaryId)
+            {
+                case 0:
+                    theSummary = "No weather at all!";
+                    break;
+                case 9:
+                    theSummary = "Extreme weather";
+                    break;
+                case 1:
+                    theSummary = "Semi Extreme weather";
+                    break;
+                case 2:
+                    theSummary = "Less Extreme weather";
+                    break;
+                case 7:
+                    theSummary = "Tough weather";
+                    break;
+                case 8:
+                    theSummary = "Severe weather";
+                    break;
+                default:
+                    theSummary = "Easy peasy weather";
+                    break;
+            }
+            return theSummary;
         }
     }
 }
