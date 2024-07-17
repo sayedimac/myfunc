@@ -19,28 +19,35 @@ namespace myfunc
 {
     public static class getWeather
     {
-
-        private static readonly string[] Summaries = new[]
-{
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         [FunctionName("getWeather")]
         public static async Task<WeatherForecast[]> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req)
         {
-            log.LogInformation("Sent Weather Data");
-
+            List<WeatherForecast> WeatherForecasts = new List<WeatherForecast>();
+            //log.LogInformation("Sent Weather Data");
             var randomNumber = new Random();
-            var temp = 0;
+            int i = 5;
+            int temp = 0;
 
-            var result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+
+            for (int index = 1; index <= i; index++)
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = temp = randomNumber.Next(-20, 55),
-                Summary = GetSummary(temp)
-            }).ToArray();
+                WeatherForecasts.Add(new WeatherForecast
+                {
+                    Date = DateTime.Now.AddDays(index),
+                    TemperatureC = temp = randomNumber.Next(-20, 55),
+                    Summary = GetSummary(temp)
+                });
+            }
+            return WeatherForecasts.ToArray();
+
+
+            // var result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            // {
+            //     Date = DateTime.Now.AddDays(index),
+            //     TemperatureC = temp = randomNumber.Next(-20, 55),
+            //     Summary = GetSummary(temp)
+            // }).ToArray();
 
 
             // String responseMessage =  "[" +  
@@ -52,7 +59,7 @@ namespace myfunc
             // "]";
             // return new OkObjectResult(responseMessage);
         }
- private static string GetSummary(int temp)
+        private static string GetSummary(int temp)
         {
             var summary = "Mild";
 
