@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +32,7 @@ namespace myfunc
         {
             log.LogInformation("Sent Weather Data");
 
-            var randomNumber = new Random(-20, 55);
+            var randomNumber = new Random();
             var summaryId = randomNumber.Next(Summaries.Length);
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
