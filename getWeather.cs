@@ -33,13 +33,12 @@ namespace myfunc
         {
             log.LogInformation("Sent Weather Data");
 
-            var rng = new Random();
-            int temperatureC = rng.Next(-20, 55);
-            var summaryId = rng.Next(Summaries.Length);
+            var randomNumber = new Random(-20, 55);
+            var summaryId = randomNumber.Next(Summaries.Length);
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
-                TemperatureC = new Random(1, 100),
+                TemperatureC = randomNumber.Next(-20, 55),
                 Summary = Summaries[summaryId]
             })
             .ToArray();
