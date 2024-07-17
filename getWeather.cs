@@ -36,7 +36,7 @@ namespace myfunc
             var rng = new Random();
             int temperatureC = rng.Next(-20, 55);
             var summaryId = rng.Next(Summaries.Length);
-            return Enumerable.Range(1, 1).Select(index => new WeatherForecast
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = temperatureC,
