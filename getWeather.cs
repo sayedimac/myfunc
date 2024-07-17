@@ -39,7 +39,7 @@ namespace myfunc
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
-                TemperatureC = temperatureC,
+                TemperatureC = new Random(1, 100),
                 Summary = Summaries[summaryId]
             })
             .ToArray();
