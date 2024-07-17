@@ -32,13 +32,15 @@ namespace myfunc
         {
             log.LogInformation("Sent Weather Data");
 
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var randomNumber = new Random();
+            var temp = 0;
+
+            var result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
-                TemperatureC = new Random().Next(-20, 55),
-                Summary = getSummary(new Random().Next(0, 10))
-            })
-            .ToArray();
+                TemperatureC = temp = randomNumber.Next(-20, 55),
+                Summary = GetSummary(temp)
+            }).ToArray();
 
 
             // String responseMessage =  "[" +  
@@ -50,35 +52,24 @@ namespace myfunc
             // "]";
             // return new OkObjectResult(responseMessage);
         }
-        public static string getSummary(int id)
+ private static string GetSummary(int temp)
         {
-            var summaryId = id;
-            string? theSummary = "" ?? "No weather at all!";
-            switch (summaryId)
+            var summary = "Mild";
+
+            if (temp >= 32)
             {
-                case 0:
-                    theSummary = "No weather at all!";
-                    break;
-                case 9:
-                    theSummary = "Extreme weather";
-                    break;
-                case 1:
-                    theSummary = "Semi Extreme weather";
-                    break;
-                case 2:
-                    theSummary = "Less Extreme weather";
-                    break;
-                case 7:
-                    theSummary = "Tough weather";
-                    break;
-                case 8:
-                    theSummary = "Severe weather";
-                    break;
-                default:
-                    theSummary = "Easy peasy weather";
-                    break;
+                summary = "Hot";
             }
-            return theSummary;
+            else if (temp <= 16 && temp > 0)
+            {
+                summary = "Cold";
+            }
+            else if (temp <= 0)
+            {
+                summary = "Freezing!";
+            }
+
+            return summary;
         }
     }
 }
