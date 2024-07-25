@@ -21,7 +21,7 @@ namespace myfunc
     {
         [FunctionName("getWeather")]
         public static async Task<WeatherForecast[]> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req)
         {
             List<WeatherForecast> WeatherForecasts = new List<WeatherForecast>();
             //log.LogInformation("Sent Weather Data");
