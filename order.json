@@ -1,0 +1,6 @@
+{
+  "orderId": "SO-2025-001234",
+  "customerId": "CUST-789",
+  "amount": 1299.99,
+  "status": "pending"
+}
