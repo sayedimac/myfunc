@@ -11,6 +11,6 @@ builder.ConfigureFunctionsWebApplication();
 builder.Services
     .AddApplicationInsightsTelemetryWorkerService()
     .ConfigureFunctionsApplicationInsights()
-    .AddSingleton(new BlobServiceClient(builder.Configuration["TABLE-CONN"]));
+    .AddSingleton(new BlobServiceClient(builder.Configuration["storage_connection"]));
 
 builder.Build().Run();
