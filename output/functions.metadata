@@ -1,0 +1,66 @@
+[
+  {
+    "name": "getHttpData",
+    "scriptFile": "FucntionsApp.dll",
+    "entryPoint": "FucntionsApp.getHttpData.Run",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "req",
+        "direction": "In",
+        "type": "httpTrigger",
+        "authLevel": "Anonymous",
+        "methods": [
+          "get"
+        ],
+        "properties": {}
+      },
+      {
+        "name": "$return",
+        "type": "http",
+        "direction": "Out"
+      }
+    ]
+  },
+  {
+    "name": "queueAdded",
+    "scriptFile": "FucntionsApp.dll",
+    "entryPoint": "FucntionsApp.queueAdded.Run",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "message",
+        "direction": "In",
+        "type": "queueTrigger",
+        "queueName": "salesorders",
+        "connection": "TABLE-CONN",
+        "properties": {
+          "supportsDeferredBinding": "True"
+        }
+      },
+      {
+        "name": "TableEntity",
+        "direction": "Out",
+        "type": "table",
+        "tableName": "salesorders",
+        "connection": "TABLE-CONN",
+        "properties": {}
+      },
+      {
+        "name": "BlobContent",
+        "direction": "Out",
+        "type": "blob",
+        "dataType": "String",
+        "blobPath": "salesorders/{id}.txt",
+        "connection": "TABLE-CONN",
+        "properties": {}
+      }
+    ]
+  }
+]
