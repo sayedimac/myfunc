@@ -98,3 +98,6 @@ az functionapp deployment source config-zip \
 | `Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore` | 2.1.0 |
 | `Microsoft.Azure.Functions.Worker.Extensions.Storage.Queues` | 5.5.4 |
 | `Microsoft.Azure.Functions.Worker.Extensions.Tables` | 1.5.0 |
+
+
+hahaha
